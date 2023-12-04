@@ -72,6 +72,7 @@ const answers = document.querySelector(".answers");
 const questionTitle = document.querySelector("h2");
 let count = 0;
 nextButton.addEventListener("click", () => {
+    nextButton.innerHTML = "Suivant";
     let child = answers.lastElementChild;
     while (child) {
         answers.removeChild(child);
@@ -90,5 +91,6 @@ nextButton.addEventListener("click", () => {
     } else {
         questionTitle.innerHTML = "Fin du Quizz, bien joué !";
         nextButton.innerHTML = "Recommencer";
+        count = 0;
     }
 });
