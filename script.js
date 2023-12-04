@@ -51,6 +51,7 @@ questionsList.forEach((elmt) => {
     shuffleArray(elmt.resp);
 });
 
+// Class for initializing questions
 class Question {
     constructor(question, resp, ga) {
         this.question = question;
@@ -67,10 +68,14 @@ class Question {
     }
 }
 
-const nextButton = document.querySelector(".next");
-const answers = document.querySelector(".answers");
+// Selectors
 const questionTitle = document.querySelector("h2");
+const answers = document.querySelector(".answers");
+const nextButton = document.querySelector(".next");
+
+// Click listener
 let count = 0;
+
 nextButton.addEventListener("click", () => {
     nextButton.innerHTML = "Suivant";
     let child = answers.lastElementChild;
