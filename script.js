@@ -2,26 +2,26 @@ const questionsList = [
     {
         question: "Combien font 2+2",
         resp: ["3", "4", "42", "La réponse D"],
-        ga: "b",
+        ga: "4",
     },
 
     {
         question: "De quel couleur est le ciel",
         resp: ["vert", "bleu", "rouge", "la réponse D"],
-        ga: "b",
+        ga: "bleu",
     },
 
     {
         question: "Quel est le meilleur éditeur de code ? ",
         resp: ["vscode", "kate", "sublimetext", "neovim"],
-        ga: "d",
+        ga: "neovim",
     },
 
     {
         question:
             "Quelle position occupe la terre en terme de proximité au Soleil ? ",
         resp: ["3", "8", "4", "12"],
-        ga: "a",
+        ga: "3",
     },
 
     {
@@ -32,9 +32,24 @@ const questionsList = [
             "William Sauvage",
             "Mireille Mathieu",
         ],
-        ga: "a",
+        ga: "Charlemagne",
     },
 ];
+
+// Fisher-Yates algorith to randomize an array
+const shuffleArray = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+};
+
+shuffleArray(questionsList);
+questionsList.forEach((elmt) => {
+    shuffleArray(elmt.resp);
+});
 
 class Question {
     constructor(question, resp, ga) {
@@ -53,19 +68,27 @@ class Question {
 }
 
 const nextButton = document.querySelector(".next");
+const answers = document.querySelector(".answers");
+const questionTitle = document.querySelector("h2");
 let count = 0;
 nextButton.addEventListener("click", () => {
-    const answers = document.querySelector(".answers");
     let child = answers.lastElementChild;
     while (child) {
         answers.removeChild(child);
         child = answers.lastElementChild;
     }
-    let question = new Question(
-        questionsList[count].question,
-        questionsList[count].resp,
-        questionsList[count].ga,
-    );
-    question.ask(".answers");
-    count++;
+    if (count < questionsList.length) {
+        let question = new Question(
+            questionsList[count].question,
+            questionsList[count].resp,
+            questionsList[count].ga,
+        );
+        questionTitle.innerHTML = question.question;
+        question.ask(".answers");
+
+        count++;
+    } else {
+        questionTitle.innerHTML = "Fin du Quizz, bien joué !";
+        nextButton.innerHTML = "Recommencer";
+    }
 });
