@@ -1,3 +1,6 @@
+// question list can be used to store questions and answer lists as well as the good answer
+// it is scallable : possible to add as many questions and answers as you want
+// Each question will be randomly prompted to the user and responses will be diplayed in randomized order
 const questionsList = [
     {
         question: "Combien font 2+2",
@@ -64,25 +67,44 @@ class Question {
         this.ga = ga;
     }
     ask(tag) {
-        const tagToInsert = document.querySelector(tag);
+        // Create answers button (scallable)
         this.resp.forEach((elmt) => {
             const answer = document.createElement("button");
             answer.innerHTML = elmt;
-            tagToInsert.appendChild(answer);
+            tag.appendChild(answer);
         });
-        tagToInsert.addEventListener(
-            "click",
-            (e) => {
-                if (e.target.innerHTML == this.ga) {
-                    e.target.style.background = "green";
-                    score++;
-                } else {
-                    e.target.style.background = "red";
+        // Select all answers buttons
+        const buttons = document.querySelectorAll(".answers button");
+        // Function that remove Listeners
+        let removeListeners = (buttons) => {
+            for (const key in buttons) {
+                if (buttons.hasOwnProperty(key)) {
+                    const element = buttons[key];
+                    element.replaceWith(element.cloneNode(true));
                 }
-                console.log("Score :", score);
-            },
-            { once: true },
-        );
+            }
+        };
+        // Loop and add Event Listeners
+        for (const key in buttons) {
+            if (buttons.hasOwnProperty(key)) {
+                const element = buttons[key];
+                element.addEventListener(
+                    "click",
+                    (e) => {
+                        if (e.target.innerHTML == this.ga) {
+                            e.target.style.background = "green";
+                            score++;
+                            removeListeners(buttons);
+                        } else {
+                            e.target.style.background = "red";
+                            removeListeners(buttons);
+                        }
+                        console.log("Score :", score);
+                    },
+                    { once: true },
+                );
+            }
+        }
     }
 }
 
@@ -113,7 +135,7 @@ nextButton.addEventListener("click", () => {
             questionsList[count].ga,
         );
         questionTitle.innerHTML = question.question;
-        question.ask(".answers");
+        question.ask(answers);
 
         count++;
     } else {
