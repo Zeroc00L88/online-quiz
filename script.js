@@ -53,6 +53,11 @@ questionsList.forEach((elmt) => {
 
 // Class for initializing questions
 class Question {
+    /*
+     * question : question to ask
+     * resp : resp list in an array
+     * ga : the good answer
+     */
     constructor(question, resp, ga) {
         this.question = question;
         this.resp = resp;
@@ -65,8 +70,23 @@ class Question {
             answer.innerHTML = elmt;
             tagToInsert.appendChild(answer);
         });
+        tagToInsert.addEventListener(
+            "click",
+            (e) => {
+                if (e.target.innerHTML == this.ga) {
+                    e.target.style.background = "green";
+                    score++;
+                } else {
+                    e.target.style.background = "red";
+                }
+                console.log("Score :", score);
+            },
+            { once: true },
+        );
     }
 }
+
+let score = 0;
 
 // Selectors
 const questionTitle = document.querySelector("h2");
