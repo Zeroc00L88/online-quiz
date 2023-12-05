@@ -16,10 +16,18 @@ h1 {
     text-align: center;
 }
 .questionCard {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    justify-content: center;
     padding: 30px;
     background: rgba(100, 100, 100, 0.3);
     border-radius: 15px;
     width: 600px;
+    min-height: 400px;
+}
+.questionCard p {
+    text-align: center;
 }
 .answers {
     display: flex;

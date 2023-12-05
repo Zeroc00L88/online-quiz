@@ -89,6 +89,7 @@ class Question {
 let score = 0;
 
 // Selectors
+const questionCard = document.querySelector(".questionCard");
 const questionTitle = document.querySelector("h2");
 const answers = document.querySelector(".answers");
 const nextButton = document.querySelector(".next");
@@ -116,6 +117,11 @@ nextButton.addEventListener("click", () => {
     } else {
         questionTitle.innerHTML = "Fin du Quizz, bien joué !";
         nextButton.innerHTML = "Recommencer";
+        const finalScore = document.createElement("p");
+        finalScore.innerHTML =
+            "Score Final : " + score + "/" + questionsList.length;
+        questionCard.appendChild(finalScore);
         count = 0;
+        score = 0;
     }
 });
