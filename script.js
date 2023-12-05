@@ -93,11 +93,13 @@ const questionCard = document.querySelector(".questionCard");
 const questionTitle = document.querySelector("h2");
 const answers = document.querySelector(".answers");
 const nextButton = document.querySelector(".next");
+const finalScore = document.createElement("p");
 
 // Click listener
 let count = 0;
 
 nextButton.addEventListener("click", () => {
+    finalScore.remove();
     nextButton.innerHTML = "Suivant";
     let child = answers.lastElementChild;
     while (child) {
@@ -117,7 +119,6 @@ nextButton.addEventListener("click", () => {
     } else {
         questionTitle.innerHTML = "Fin du Quizz, bien joué !";
         nextButton.innerHTML = "Recommencer";
-        const finalScore = document.createElement("p");
         finalScore.innerHTML =
             "Score Final : " + score + "/" + questionsList.length;
         questionCard.appendChild(finalScore);
