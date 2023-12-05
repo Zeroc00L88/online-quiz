@@ -146,5 +146,9 @@ nextButton.addEventListener("click", () => {
         questionCard.appendChild(finalScore);
         count = 0;
         score = 0;
+        shuffleArray(questionsList);
+        questionsList.forEach((elmt) => {
+            shuffleArray(elmt.resp);
+        });
     }
 });
